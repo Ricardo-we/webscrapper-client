@@ -16,7 +16,7 @@ const NavBar: FunctionComponent<NavBarProps> = ({ }) => {
         <nav
             className="bg-white  border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 sticky top-0 z-30"
         >
-            <div style={navStyle.collapseButton} className="container flex flex-wrap justify-between items-center mx-auto">
+            <div className="container flex flex-wrap justify-between items-center mx-auto">
                 <a href="#" className="flex items-center">
                     <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                         {language?.general?.appName}
@@ -34,10 +34,10 @@ const NavBar: FunctionComponent<NavBarProps> = ({ }) => {
                             <a href="#" className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
                         </li>
                         <li>
-                            <Link>About</Link>
+                            <Link to="#">About</Link>
                         </li>
                         <li>
-                            <Link>Services</Link>
+                            <Link to="#">Services</Link>
                         </li>
                         <li>
                             <Link to="#">

@@ -20,7 +20,8 @@ const ProductsMap = ({ products }: { products: Product[] }) => {
       image={product.image}
       title={product.name}
       description={product.description}
-      shopName={product.shopName}
+      bottomLabel={product.shopName}
+      itemId={product?.id}
       buttonText="Go to details"
     />
   ))

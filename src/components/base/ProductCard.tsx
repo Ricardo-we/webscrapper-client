@@ -1,18 +1,23 @@
 import Button from "./Buttons/Button";
 import { FunctionComponent } from "react";
 import Paragraph from "./Text/Paragraph";
+import { PlainLink } from "./Link";
 
 interface ProductCardProps {
     image?: { src?: string, alt?: string } | string;
     title?: string;
     description?: string;
     buttonText?: string;
-    shopName?: string;
+    bottomLabel?: string;
+    itemId?: number | string
 }
 
-const ProductCard: FunctionComponent<ProductCardProps> = ({ image, title, description, buttonText, shopName }) => {
+const ProductCard: FunctionComponent<ProductCardProps> = ({ image, title, description, buttonText, bottomLabel, itemId }) => {
     return (
-        <div className="flex-col w-64 p-2  rounded-md  mx-auto">
+        <PlainLink
+            to={`/details/${itemId}`}
+            className="flex-col w-64 p-4 shadow-sm shadow-gray-200  rounded-md  mx-auto"
+        >
             <img
                 src={typeof image === "string" ? image : image?.src}
                 alt={typeof image === "string" ? "" : image?.alt}
@@ -25,7 +30,8 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({ image, title, descri
 
             <Paragraph>{description}</Paragraph>
             <Button variant="indigo">{buttonText}</Button>
-        </div>
+            <Paragraph textColor="indigo">{bottomLabel}</Paragraph>
+        </PlainLink>
     );
 }
 
