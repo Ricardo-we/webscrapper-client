@@ -18,16 +18,16 @@ function extractProduct(product: any): Product {
     } as Product
 }
 
-export default class ProductsService implements BaseService {
-    endpointName = "products"
+export default class ProductTagService implements BaseService {
+    endpointName = "product-tags"
     request: BaseRequest = new BaseRequest(this.endpointName);
 
     constructor() { }
 
     async find(requestConfig?: RequestConfig) {
         const data = await this.request.find(requestConfig || {});
-        if (!data || data?.length <= 0) return [];
-        const products = data?.map(extractProduct);
+        if (!data || data?.products?.length <= 0) return [];
+        const products = data?.products?.map(extractProduct);
         return products;
     }
 

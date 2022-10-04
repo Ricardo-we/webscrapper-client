@@ -1,6 +1,7 @@
 {
     "general": {
-        "appName": "Web Scrapper"
+        "appName": "Web Scrapper",
+        "checkDetails": "Ir a "
     },
     "fields": {
         "search": "Buscar"

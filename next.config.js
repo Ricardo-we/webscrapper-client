@@ -2,7 +2,9 @@
 const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
-	dir: "./src",
+	images: {
+		domains: ["gt.epaenlinea.com", "www.cemaco.com"],
+	},
 };
 
 module.exports = nextConfig;

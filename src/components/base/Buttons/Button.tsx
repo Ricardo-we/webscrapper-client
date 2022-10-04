@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FunctionComponent } from "react";
+import { ButtonHTMLAttributes, FC } from "react";
 
 import { colorVariants } from "../../../types/Theme.variants";
 
@@ -7,8 +7,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     textColor?: colorVariants
 }
 
-const Button: FunctionComponent<ButtonProps> = ({ children, variant, textColor = "white", ...props }) => {
-    const tailwindClassList = `inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 bg-${variant}-500 p-3 text-${textColor}`;
+const Button: FC<ButtonProps> = ({ children, variant, textColor = "white", ...props }) => {
+    const tailwindClassList = `p-2 w-auto bg-indigo-700 rounded-sm mx-auto min-w-max hover:bg-gray-400 bg-${variant}-500 p-3 text-${textColor}`;
 
     return (
         <button

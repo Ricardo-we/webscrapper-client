@@ -1,11 +1,10 @@
 import type { GetServerSideProps, NextPage } from 'next'
 
-import NavBar from '../components/base/Navbar';
+import GallerySlider from '../components/base/Sliders/GallerySlider';
 import Paragraph from '../components/base/Text/Paragraph';
 import Product from '../types/Product';
-import ProductCard from '../components/base/ProductCard';
 import ProductsService from '../libs/services/ProductsService';
-import Slider from '../components/base/Slider';
+import { mapProductList } from '../components/base/ProductCard';
 import useLanguage from '../hooks/useLanguage';
 
 interface HomeProps {
@@ -13,19 +12,6 @@ interface HomeProps {
   sliderProducts: Array<Product>
 }
 
-const ProductsMap = ({ products }: { products: Product[] }) => {
-  return products?.map((product, index) => (
-    <ProductCard
-      key={index}
-      image={product.image}
-      title={product.name}
-      description={product.description}
-      bottomLabel={product.shopName}
-      itemId={product?.id}
-      buttonText="Go to details"
-    />
-  ))
-}
 
 const Home: NextPage<HomeProps> = ({ products, sliderProducts }) => {
   const { language } = useLanguage("es");
@@ -33,23 +19,27 @@ const Home: NextPage<HomeProps> = ({ products, sliderProducts }) => {
 
   return (
     <>
-      <NavBar />
-      <h1 className="text-7xl text-center w-full my-2">{language?.general?.appName}</h1>
-      <Slider
-        slidesPerView={4}
-        centeredSlides={false}
-        spaceBetween={30}
-        draggable
-        items={ProductsMap({ products: sliderProducts })}
+      <div className="flex flex-col items-center justify-start h-auto bg-white w-full">
+        <h1 className="text-black text-7xl text-center w-full my-2">{language?.general?.appName}</h1>
+        <Paragraph className="text-black text-center" fontSizeVariant="xl">
+          {moduleLabels?.welcomeDescription}
+        </Paragraph>
+        <br />
 
-      />
+        <div className="container p-2 mx-2">
+          <GallerySlider
+            slidesPerView={3}
+            centeredSlides
+            spaceBetween={50}
+            draggable
+            items={mapProductList({ products: sliderProducts })}
+          />
+        </div>
 
-      <Paragraph fontSizeVariant="xl" className="text-center">
-        {moduleLabels?.welcomeDescription}
-      </Paragraph>
+      </div>
 
       <div className="w-full flex flex-row flex-wrap items-center justify-between">
-        {ProductsMap({ products })}
+        {mapProductList({ products })}
       </div>
     </>
   )

@@ -11,8 +11,5 @@ export default interface Product {
     shopName: ShopName;
 }
 
-export enum ShopName {
-    Cemaco = "cemaco",
-    Epa = "epa",
-    Novex = "novex"
-}
+export type ShopName = "cemaco" | "epa" | "novex"
+
