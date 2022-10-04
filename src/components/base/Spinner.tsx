@@ -2,15 +2,16 @@ import { FunctionComponent } from "react";
 import { colorVariants } from "../../types/Theme.variants";
 
 interface SpinnerProps {
-    variant?: colorVariants;
+    size?: number
 }
 
-const Spinner: FunctionComponent<SpinnerProps> = ({ variant }) => {
+const Spinner: FunctionComponent<SpinnerProps> = ({ size = 40 }) => {
 
     return (
         <div role="status">
             <svg
-                className="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                style={{ width: size, height: size }}
+                className="inline mr-2 opacity-60 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -24,6 +25,20 @@ const Spinner: FunctionComponent<SpinnerProps> = ({ variant }) => {
                     fill="currentFill"
                 />
             </svg>
+        </div>
+    );
+}
+
+interface BackDropLoaderProps {
+
+}
+
+export const BackDropLoader: FunctionComponent<BackDropLoaderProps> = () => {
+    return (
+        <div style={{ zIndex: 55 }} className="fixed top-0 flex items-center justify-center w-screen h-screen bg-gray-500">
+            <Spinner
+                size={60}
+            />
         </div>
     );
 }

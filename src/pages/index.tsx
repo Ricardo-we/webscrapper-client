@@ -21,7 +21,7 @@ const Home: NextPage<HomeProps> = ({ products, sliderProducts }) => {
     <>
       <div className="flex flex-col items-center justify-start h-auto bg-white w-full">
         <h1 className="text-black text-7xl text-center w-full my-2">{language?.general?.appName}</h1>
-        <Paragraph className="text-black text-center" fontSizeVariant="xl">
+        <Paragraph className="text-black text-center mt-2 w-10/12" fontSizeVariant="xl">
           {moduleLabels?.welcomeDescription}
         </Paragraph>
         <br />

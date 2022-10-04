@@ -54,14 +54,14 @@ export const mapProductList = ({ products }: { products: Product[] }): JSX.Eleme
     return products?.map((product, index) => (
         <ProductCard
             key={index}
-            image={product.image}
-            title={product.name}
-            description={product.description}
-            bottomLabel={product.shopName}
+            image={product?.image}
+            title={product?.name}
+            description={product?.description}
+            bottomLabel={product?.shopName}
             itemId={product?.id}
-            price={(product?.currencySymbol || "Q") + product.price}
-            itemUrl={product.productUrl}
-            buttonText={language?.general?.checkDetails + product.shopName}
+            price={(product?.currencySymbol || "Q") + product?.price}
+            itemUrl={product?.productUrl}
+            buttonText={language?.general?.checkDetails + product?.shopName}
         />
     ))
 }
