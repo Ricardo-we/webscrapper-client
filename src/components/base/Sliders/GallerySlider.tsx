@@ -15,14 +15,14 @@ export default function GallerySlider({ items, ...props }: GallerySliderProps) {
             <Swiper
                 effect={"coverflow"}
                 grabCursor={true}
-                centeredSlides={true}
+                centeredSlides
                 slidesPerView={"auto"}
                 coverflowEffect={{
-                    rotate: 50,
+                    rotate: 30,
                     stretch: 0,
                     depth: 100,
                     modifier: 1,
-                    slideShadows: true,
+                    slideShadows: false,
                 }}
                 pagination={true}
                 modules={[EffectCoverflow, Pagination]}

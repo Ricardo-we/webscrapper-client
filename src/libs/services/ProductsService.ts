@@ -26,7 +26,7 @@ export default class ProductsService implements BaseService {
 
     async find(requestConfig?: RequestConfig) {
         const data = await this.request.find(requestConfig || {});
-        if (!data || data?.length <= 0) return [];
+        if (!(data instanceof Array) || !data || data?.length <= 0) return [];
         const products = data?.map(extractProduct);
         return products;
     }

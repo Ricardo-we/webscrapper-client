@@ -31,10 +31,11 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({ image, title, descri
                 className="w-full mx-0 object-cover h-56"
             />
 
-            <h3 className="text-xl">
+            <h3 className="text-lg text-center">
                 {title}
             </h3>
-            <Paragraph fontSizeVariant="xl" textColor="blue">
+
+            <Paragraph className="text-2xl text-indigo-700 my-2">
                 {price}
             </Paragraph>
 

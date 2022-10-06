@@ -28,7 +28,20 @@ const Home: NextPage<HomeProps> = ({ products, sliderProducts }) => {
 
         <div className="container p-2 mx-2">
           <GallerySlider
-            slidesPerView={3}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              900: {
+                slidesPerView: 3
+              },
+              1600: {
+                slidesPerView: 4
+              }
+            }}
+
+            style={{ width: "100%" }}
+            slidesPerView={1}
             centeredSlides
             spaceBetween={50}
             draggable

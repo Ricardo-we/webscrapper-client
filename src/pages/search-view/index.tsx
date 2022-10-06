@@ -28,18 +28,31 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
     const bottomItemRef = useRef(null);
     const bottomItemVisible = useObserver(bottomItemRef, { threshold: 0.1 });
 
+    const getProducts = () => {
+        return productTagService.find({ params: { tag_name: search, current_page: currentIndex.current } })
+            .then(moreProducts => {
+                if (!moreProducts || moreProducts?.length <= 0) return isMaxPage.current = true;
+                setProducts(prev => [...prev, ...moreProducts])
+            })
+            .catch(error => toast.error(error))
+            .finally(() => setLoading(false));
+    }
+
+    useEffect(() => {
+        if (search) {
+            currentIndex.current = 0;
+            setLoading(true)
+            setProducts([])
+            getProducts();
+        }
+    }, [search])
+
     useEffect(() => {
         if (bottomItemVisible && !loading && !isMaxPage.current) {
             currentIndex.current += 1;
             setLoading(true);
-            productTagService.find({ params: { tag_name: search, current_page: currentIndex.current } })
-                .then(moreProducts => {
-                    if (!moreProducts || moreProducts?.length <= 0) return isMaxPage.current = true;
-                    setProducts(prev => [...prev, ...moreProducts])
-                })
-                .catch(error => toast.error(error))
-                .finally(() => setLoading(false));
-
+            console.log(currentIndex.current)
+            getProducts();
         }
     }, [bottomItemVisible])
 
@@ -52,9 +65,11 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 
             <div className="h-10" ref={bottomItemRef}></div>
 
-            {loading && <Spinner
-                size={30}
-            />}
+            <div className="flex items-center justify-center">
+                {loading && <Spinner
+                    size={50}
+                />}
+            </div>
         </>
     )
 }
