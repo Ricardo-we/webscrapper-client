@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from 'react'
 
 import type { AppProps } from 'next/app'
 import { BackDropLoader } from '../components/base/Spinner'
+import MainLayout from '../components/base/Layouts/MainLayout';
 import NavBar from '../components/base/Navbar'
 import { Provider as ReduxProvider } from "react-redux"
 import { store } from '../stores/app.store'
@@ -39,8 +40,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ReduxProvider store={store}>
       <Loader />
-      <NavBar />
-      <Component {...pageProps} />
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </ReduxProvider>
   )
 }

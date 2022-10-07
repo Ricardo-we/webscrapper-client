@@ -65,7 +65,7 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 
             <div className="h-10" ref={bottomItemRef}></div>
 
-            <div className="flex items-center justify-center">
+            <div className="flex flex-auto items-center justify-center">
                 {loading && <Spinner
                     size={50}
                 />}

@@ -51,9 +51,10 @@ const Home: NextPage<HomeProps> = ({ products, sliderProducts }) => {
 
       </div>
 
-      <div className="w-full flex flex-row flex-wrap items-center justify-between">
+      <div className="w-full ml-1 flex flex-row flex-wrap items-center justify-between">
         {mapProductList({ products })}
       </div>
+
     </>
   )
 }

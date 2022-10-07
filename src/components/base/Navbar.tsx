@@ -28,11 +28,11 @@ const NavBar: FunctionComponent<NavBarProps> = ({ }) => {
             className="bg-white  border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 sticky top-0 z-30"
         >
             <div className={`container flex flex-wrap justify-between items-center mx-auto h-auto w-fill`}>
-                <a href="#" className="flex items-center">
+                <PlainLink to="/" className="flex items-center">
                     <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                         {language?.general?.appName}
                     </span>
-                </a>
+                </PlainLink>
 
 
                 <IconButton

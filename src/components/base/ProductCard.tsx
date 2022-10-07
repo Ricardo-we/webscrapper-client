@@ -19,32 +19,45 @@ interface ProductCardProps {
 }
 
 const ProductCard: FunctionComponent<ProductCardProps> = ({ image, title, description, buttonText, bottomLabel, itemId, itemUrl, price }) => {
+    const shopColor = getShopColor(bottomLabel || "epa");
+    const linkClassNames = `w-full  text-center text-${bottomLabel} p-2 text-white bg-transparent hover:bg-${bottomLabel} border border-${bottomLabel} hover:text-white duration-500 font-bold`;
 
     return (
         <PlainLink
-            to={`/details/${itemId}`}
-            className="flex flex-col items-center justify-between w-80 m-2 p-4 shadow-md bg-transparent rounded-md  mx-auto"
+            to={itemUrl}
+            target="_blank"
+            onClick={e => e.stopPropagation()}
+            className="flex flex-col items-center justify-between w-64 p-3 shadow-lg shadow-slate-300 border border-zinc-200 bg-transparent rounded-md  mx-1"
         >
             <img
                 src={typeof image === "string" ? image : image?.src}
                 alt={typeof image === "string" ? "" : image?.alt}
-                className="w-full mx-0 object-cover h-56"
+                className="w-full mx-0 object-cover h-40"
             />
+            <div className="flex flex-col items-start mt-2 p-2 justify-between w-full">
 
-            <h3 className="text-lg text-center">
-                {title}
-            </h3>
+                <h3 className="text-base text-left w-full">
+                    {title}
+                </h3>
 
-            <Paragraph className="text-2xl text-indigo-700 my-2">
-                {price}
-            </Paragraph>
+                <Paragraph className="text-xl text-right font-bold text-black">
+                    {price}
+                </Paragraph>
+            </div>
+            <Paragraph className="tex-lg text-left w-full px-2 text-black text-opacity-40">{description?.substring(0, 30)}</Paragraph>
 
-            <Paragraph>{description}</Paragraph>
-            <Paragraph fontSizeVariant="2xl" style={{ color: getShopColor(bottomLabel || "epa") }}>
+            <Paragraph fontSizeVariant="2xl" style={{ color: shopColor }}>
                 {bottomLabel?.toUpperCase()}
             </Paragraph>
 
-            <PlainLink className="w-full text-center bg-indigo-700 p-2 text-white" to={itemUrl}>{buttonText}</PlainLink>
+            <PlainLink
+                className={linkClassNames}
+                to={itemUrl}
+                onClick={e => e.stopPropagation()}
+                target="_blank"
+            >
+                {buttonText}
+            </PlainLink>
         </PlainLink>
     );
 }
