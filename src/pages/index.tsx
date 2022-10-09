@@ -55,8 +55,8 @@ const Home: NextPage<HomeProps> = ({ products, sliderProducts }) => {
 				</div>
 			</div>
 
-			<div className="w-full flex flex-1 flex-row flex-wrap  items-center justify-around mb-5">
-				{mapProductList({ products, filter: (item, index) => true })}
+			<div className="w-full cust-small-grid mb-5">
+				{mapProductList({ products })}
 			</div>
 		</>
 	);

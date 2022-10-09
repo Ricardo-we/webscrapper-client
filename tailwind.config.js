@@ -14,6 +14,10 @@ module.exports = {
 				novex: "#0263b5",
 				money: "#4164b3",
 			},
+			gridTemplateColumns: {
+				"auto-fill": "repeat(auto-fill, minmax(min(100%,8rem), 1fr))",
+				"auto-fit": "repeat(auto-fit, minmax(min(100%,8rem), 1fr))",
+			},
 		},
 	},
 	plugins: [],

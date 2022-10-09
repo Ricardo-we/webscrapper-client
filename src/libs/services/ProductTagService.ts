@@ -26,9 +26,7 @@ export default class ProductTagService implements BaseService {
 
     async find(requestConfig?: RequestConfig) {
         const data = await this.request.find(requestConfig || {});
-        if (!data || data?.products?.length <= 0) return [];
-        const products = data?.products?.map(extractProduct);
-        return products;
+        return data;
     }
 
     async post() {

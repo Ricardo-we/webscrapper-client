@@ -13,6 +13,18 @@ body {
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.cust-small-grid {
+	display: grid;
+	/* grid-template-rows: 20rem; */
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+	grid-auto-flow: dense;
+	gap: 1rem;
+}
+
 :root {
 	--app-collapse-transition-time: 500ms;
+	--pad-1: 10px;
+	--pad-3: 30px;
+	--pad-4: 40px;
+	--pad-6: 60px;
 }

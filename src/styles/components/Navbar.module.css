@@ -16,6 +16,14 @@
 	align-items: center;
 }
 
+.dropdown-container {
+	min-width: 30rem;
+	max-width: 100rem;
+	padding: var(--pad-2);
+	display: grid;
+	grid-template-columns: repeat(4, minmax(min(100%, 12rem), 1fr));
+}
+
 @media (max-width: 768px) {
 	.nav-items-container {
 		width: 100%;
