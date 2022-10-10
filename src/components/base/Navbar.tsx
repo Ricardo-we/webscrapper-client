@@ -92,7 +92,7 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 								<VscSearch size={20} color="white" />
 							</PlainLink>
 						</div>
-						<NavBarLinkItem to="#">Home</NavBarLinkItem>
+						{/* <NavBarLinkItem to="#">Home</NavBarLinkItem> */}
 						<DropdownButton
 							dropdownItemsContainerClassNames={`whiteScrollbar dark:bg-gray-900 overflow-y-auto max-h-48 rounded ${navStyles.dropdownContainer} rounded-md shadow-lg`}
 							buttonLabel="Categorías"

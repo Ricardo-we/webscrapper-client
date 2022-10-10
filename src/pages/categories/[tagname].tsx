@@ -60,7 +60,7 @@ const CategoriesView: NextPage<CategoriesViewProps> = ({
 	return (
 		<>
 			<ToastContainer />
-			<h2 className="text-5xl w-full text-center px-3">
+			<h2 className="text-5xl w-full text-center  my-24">
 				{firstLetterUpperCase(tagname || "")}
 			</h2>
 

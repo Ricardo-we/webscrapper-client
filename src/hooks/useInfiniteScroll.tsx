@@ -14,13 +14,13 @@ const useInfiniteScroll = ({
 	onRequestMore,
 }: useInfiniteScrollProps) => {
 	const isMaxPage = useRef<boolean>(false);
-	const currentIndex = useRef<number>(0);
+	const currentIndex = useRef<number>(1);
 
 	useEffect(() => {
 		if (bottomItemVisible && !loading && !isMaxPage.current) {
-			currentIndex.current += 1;
 			onLoadChange(true);
 			onRequestMore(currentIndex.current);
+			currentIndex.current += 1;
 		}
 	}, [bottomItemVisible]);
 
