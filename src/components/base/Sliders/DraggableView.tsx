@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useEffect, useRef } from "react";
+import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
 
 interface DraggableViewProps extends HTMLAttributes<HTMLDivElement> {
 	children: JSX.Element | JSX.Element[];
@@ -6,13 +6,18 @@ interface DraggableViewProps extends HTMLAttributes<HTMLDivElement> {
 
 const DraggableView: FC<DraggableViewProps> = ({ children, ...props }) => {
 	const buttonIsPressed = useRef<boolean>(false);
-	const draggableViewRef = useRef<HTMLDivElement>(null);
+	// const draggableViewRef = useRef<HTMLDivElement>(null);
+	const [draggableViewStyle, setDraggableViewStyle] = useState({});
 
-	useEffect(() => {
-		// console.log(draggableViewRef?.current?.style);
-		if (draggableViewRef.current)
-			draggableViewRef.current.style.cursor = "grab";
-	}, [draggableViewRef.current]);
+	// useEffect(() => {
+	// 	// console.log(draggableViewRef?.current?.style);
+	// 	if (buttonIsPressed.current && draggableViewRef.current)
+	// 		draggableViewRef.current.style.cursor = "grab";
+	// 	else
+	// 		draggableViewRef.current
+	// 			? (draggableViewRef.current.style.cursor = "")
+	// 			: "";
+	// }, [draggableViewRef.current]);
 
 	return (
 		<div
@@ -20,11 +25,10 @@ const DraggableView: FC<DraggableViewProps> = ({ children, ...props }) => {
 				overflowY: "hidden",
 				overflowX: "auto",
 				scrollbarWidth: "none",
+				scrollSnapType: "x proximity",
 			}}
 			onMouseDown={(e) => {
 				buttonIsPressed.current = true;
-				if (draggableViewRef.current)
-					draggableViewRef.current.style.cursor = "grab";
 			}}
 			onMouseUp={() => (buttonIsPressed.current = false)}
 			onMouseMove={(e) => {
@@ -40,10 +44,11 @@ const DraggableView: FC<DraggableViewProps> = ({ children, ...props }) => {
 					});
 				}
 			}}
-			ref={draggableViewRef}
+			className={"relative " + props.className}
 			{...props}
 		>
 			{children}
+			<button className="rounded-full w-9 h-9 p-2 absolute right-0 top-1/2 -translate-y-1/2"></button>
 		</div>
 	);
 };

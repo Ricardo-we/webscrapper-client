@@ -97,24 +97,30 @@ export const mapProductList = ({
 	const { language } = useLanguage("es");
 	const cutSentence = getSentenceCutter(11);
 
-	return products
-		?.filter(filter)
-		?.map((product, index) => (
-			<ProductCard
-				key={index}
-				image={product?.image}
-				title={product?.name}
-				description={cutSentence(product?.description).replace(
-					/\-/,
-					"",
-				)}
-				bottomLabel={product?.shopName}
-				itemId={product?.id}
-				price={(product?.currencySymbol || "Q") + product?.price}
-				itemUrl={product?.productUrl}
-				buttonText={language?.general?.checkDetails + product?.shopName}
-			/>
-		));
+	return products && products?.length > 0
+		? products
+				?.filter(filter)
+				?.map((product, index) => (
+					<ProductCard
+						key={index}
+						image={product?.image}
+						title={product?.name}
+						description={cutSentence(product?.description).replace(
+							/\-/,
+							"",
+						)}
+						bottomLabel={product?.shopName}
+						itemId={product?.id}
+						price={
+							(product?.currencySymbol || "Q") + product?.price
+						}
+						itemUrl={product?.productUrl}
+						buttonText={
+							language?.general?.checkDetails + product?.shopName
+						}
+					/>
+				))
+		: [<></>];
 };
 
 export default ProductCard;

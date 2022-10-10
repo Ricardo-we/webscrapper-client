@@ -28,19 +28,26 @@ const DropdownButton: FC<DropdownButtonProps> = ({
 			</button>
 
 			{dropdownOpen && (
-				<div
-					onBlur={() => setDropdownOpen(false)}
-					className={
-						"absolute right-0 h-auto origin-top-right shadow-lg " +
-						dropdownItemsContainerClassNames
-					}
-					onClick={(e) => e.stopPropagation()}
-					role="menu"
-					aria-orientation="vertical"
-					aria-labelledby="menu-button"
-				>
-					{children}
-				</div>
+				<>
+					<div
+						onClick={() => setDropdownOpen(false)}
+						className="fixed top-0 left-0 w-screen h-screen bg-transparent z-10"
+					></div>
+
+					<div
+						onBlur={() => setDropdownOpen(false)}
+						className={
+							"absolute right-0 h-auto origin-top-right z-20 " +
+							dropdownItemsContainerClassNames
+						}
+						onClick={(e) => e.stopPropagation()}
+						role="menu"
+						aria-orientation="vertical"
+						aria-labelledby="menu-button"
+					>
+						{children}
+					</div>
+				</>
 			)}
 		</div>
 	);

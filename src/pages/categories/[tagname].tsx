@@ -3,69 +3,68 @@ import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import Product from "../../types/Product";
-import ProductsService from "../../libs/services/ProductsService";
+import ProductTagService from "../../libs/services/ProductTagService";
 import Spinner from "../../components/base/Spinner";
 import { mapProductList } from "../../components/base/ProductCard";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useObserver from "../../hooks/useObserver";
 
-interface HomeProps {
-	preloadedProducts: Array<Product>;
-	search: string;
+interface CategoriesViewProps {
+	preloadedProducts: Product[];
+	tagname?: string;
 }
 
-const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
-	const prdocutService = useMemo(() => new ProductsService(), []);
-	// const { language } = useLanguage("es");
-	// const moduleLabels = language?.module?.home;
-
-	// STATE
+const CategoriesView: NextPage<CategoriesViewProps> = ({
+	tagname,
+	preloadedProducts,
+}) => {
+	const productsTagService = useMemo(() => new ProductTagService(), []);
 	const [products, setProducts] = useState<Product[]>(preloadedProducts);
 	const [loading, setLoading] = useState<boolean>(false);
 	const bottomItemRef = useRef(null);
 	const bottomItemVisible = useObserver(bottomItemRef, { threshold: 0.1 });
-	const getProducts = () => {
-		return prdocutService
+
+	const onRequestMore = async () => {
+		productsTagService
 			.find({
-				params: {
-					search,
-					current_page: currentIndex.current,
-				},
+				routeParams: "/" + tagname,
+				params: { current_page: currentIndex.current },
 			})
 			.then((moreProducts) => {
 				if (!moreProducts || moreProducts?.length <= 0)
 					return (isMaxPage.current = true);
 				setProducts((prev) => [...prev, ...moreProducts]);
 			})
-			.catch((error) => toast.error(error))
+			.catch((err) => toast.error(err?.toString()))
 			.finally(() => setLoading(false));
 	};
 
-	const { currentIndex, isMaxPage } = useInfiniteScroll({
+	const { isMaxPage, currentIndex } = useInfiniteScroll({
 		bottomItemVisible,
 		onLoadChange: setLoading,
 		loading,
-		onRequestMore: getProducts,
+		onRequestMore,
 	});
 
 	useEffect(() => {
-		if (search) {
+		if (tagname) {
 			currentIndex.current = 0;
 			setLoading(true);
 			setProducts([]);
-			getProducts();
+			onRequestMore();
 		}
-	}, [search]);
+	}, [tagname]);
 
 	return (
 		<>
 			<ToastContainer />
+			<h2 className="text-4xl">{tagname}</h2>
+
 			<div className="w-full flex flex-row flex-wrap items-center justify-between">
 				{mapProductList({ products })}
 			</div>
 
 			<div className="h-10" ref={bottomItemRef}></div>
-
 			<div className="w-full cust-small-grid mb-5">
 				{loading && <Spinner size={50} />}
 			</div>
@@ -73,21 +72,19 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-	params,
-	query,
-}) => {
-	const productsService = new ProductsService();
-	const allProducts = await productsService.find({
-		params: { search: query?.search, current_page: 0 },
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+	const productTagsService = new ProductTagService();
+	const tagRelatedProducts = await productTagsService.find({
+		routeParams: "/" + params?.tagname,
+		params: { current_page: 0 },
 	});
 
 	return {
 		props: {
-			preloadedProducts: allProducts,
-			search: query?.search,
+			preloadedProducts: tagRelatedProducts,
+			tagname: params?.tagname,
 		},
 	};
 };
 
-export default Home;
+export default CategoriesView;

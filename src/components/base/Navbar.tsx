@@ -3,14 +3,13 @@ import Link, { PlainLink } from "./Link";
 import { VscSearch, VscThreeBars } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 
-import DraggableView from "./Sliders/DraggableView";
 import DropdownButton from "./Buttons/DropdownButton";
 import IconButton from "./Buttons/IconButton";
+import ProductTag from "../../types/ProductTag";
 import ProductTagService from "../../libs/services/ProductTagService";
 import { RootState } from "../../stores/app.store";
 import { changeProductTags } from "../../slices/product-tags.slice";
-import navStyles from "../../styles/components/navbar.module.css";
-import { toast } from "react-toastify";
+import navStyles from "../../styles/components/Navbar.module.css";
 import useLanguage from "../../hooks/useLanguage";
 
 interface NavBarProps {}
@@ -45,7 +44,7 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (!productTags) {
+		if (!productTags || !productTags?.length) {
 			productTagsService
 				.find()
 				.then((res) => dispatch(changeProductTags(res)))
@@ -94,14 +93,16 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 							</PlainLink>
 						</div>
 						<NavBarLinkItem to="#">Home</NavBarLinkItem>
-						<DropdownButton buttonLabel="Categorías">
-							<DraggableView
-								className={`dark:bg-gray-900 max-h-48 overflow-y-hidden rounded ${navStyles["dropdown-container"]}`}
-							>
-								{productTags?.map(
-									(productTag: any, index: number) => (
+						<DropdownButton
+							dropdownItemsContainerClassNames={`whiteScrollbar dark:bg-gray-900 overflow-y-auto max-h-48 rounded ${navStyles.dropdownContainer} rounded-md shadow-lg`}
+							buttonLabel="Categorías"
+						>
+							{productTags &&
+								productTags?.length > 0 &&
+								productTags?.map(
+									(productTag: ProductTag, index: number) => (
 										<PlainLink
-											to={`categories/${productTag?.name}`}
+											to={`/categories/${productTag?.name}`}
 											className="text-white text-center duration-500 hover:bg-gray-100 hover:text-gray-400 p-2  rounded-sm"
 											key={index}
 										>
@@ -109,18 +110,6 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 										</PlainLink>
 									),
 								)}
-								{productTags?.map(
-									(productTag: any, index: number) => (
-										<PlainLink
-											to={`categories/${productTag?.name}`}
-											className="text-white text-center duration-500 hover:bg-gray-100 hover:text-gray-400 p-2  rounded-sm"
-											key={index}
-										>
-											{productTag?.name}
-										</PlainLink>
-									),
-								)}
-							</DraggableView>
 						</DropdownButton>
 					</ul>
 				</div>
