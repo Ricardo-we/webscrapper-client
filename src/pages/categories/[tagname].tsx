@@ -2,9 +2,11 @@ import type { GetServerSideProps, NextPage } from "next";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import Head from "next/head";
 import Product from "../../types/Product";
 import ProductTagService from "../../libs/services/ProductTagService";
 import Spinner from "../../components/base/Spinner";
+import { firstLetterUpperCase } from "../../libs/utils/string.utils";
 import { mapProductList } from "../../components/base/ProductCard";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useObserver from "../../hooks/useObserver";
@@ -58,7 +60,9 @@ const CategoriesView: NextPage<CategoriesViewProps> = ({
 	return (
 		<>
 			<ToastContainer />
-			<h2 className="text-4xl">{tagname}</h2>
+			<h2 className="text-5xl w-full text-center px-3">
+				{firstLetterUpperCase(tagname || "")}
+			</h2>
 
 			<div className="w-full flex flex-row flex-wrap items-center justify-between">
 				{mapProductList({ products })}

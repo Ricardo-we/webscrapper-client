@@ -10,3 +10,8 @@ export function getSentenceCutter(sentenceLength: number = 5, removeCharacters =
         return joinedValue
     }
 }
+
+export function firstLetterUpperCase(word: string) {
+    const firstLetterUpperCase = word.charAt(0).toUpperCase();
+    return firstLetterUpperCase + word.substring(1)
+}
