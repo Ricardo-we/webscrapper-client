@@ -55,7 +55,7 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 	return (
 		<nav className="bg-white  border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 sticky top-0 z-30">
 			<div
-				className={`container flex flex-wrap justify-between items-center mx-auto h-auto w-fill`}
+				className={`container flex flex-wrap justify-evenly items-center mx-auto h-auto w-fill`}
 			>
 				<PlainLink to="/" className="flex items-center">
 					<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
@@ -97,9 +97,7 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 							dropdownItemsContainerClassNames={`whiteScrollbar dark:bg-gray-900 overflow-y-auto max-h-48 rounded ${navStyles.dropdownContainer} rounded-md shadow-lg`}
 							buttonLabel="Categorías"
 						>
-							{productTags &&
-								productTags?.length > 0 &&
-								productTags?.map(
+							{productTags?.map(
 									(productTag: ProductTag, index: number) => (
 										<PlainLink
 											to={`/categories/${productTag?.name}`}

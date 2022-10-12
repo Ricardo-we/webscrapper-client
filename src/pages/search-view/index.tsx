@@ -60,13 +60,13 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 	return (
 		<>
 			<ToastContainer />
-			<div className="w-full flex flex-row flex-wrap items-center justify-between">
+			<div className="w-full cust-small-grid mb-5">
 				{mapProductList({ products })}
 			</div>
 
 			<div className="h-10" ref={bottomItemRef}></div>
 
-			<div className="w-full cust-small-grid mb-5">
+			<div className="w-full flex items-center justify-center">
 				{loading && <Spinner size={50} />}
 			</div>
 		</>

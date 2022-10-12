@@ -57,6 +57,15 @@ const Home: NextPage<HomeProps> = ({ products, sliderProducts }) => {
 			<div className="w-full cust-small-grid mb-5">
 				{mapProductList({ products })}
 			</div>
+
+			<h3 className="text-lg">Lorem.</h3>
+			<Paragraph>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa et dignissimos tempora. Sed, veniam! Nulla et cum, iusto laborum animi consequuntur ducimus nesciunt quam exercitationem, eligendi nam sunt adipisci. Dolor?
+			Suscipit saepe consequatur, magnam earum accusamus tempora ipsam adipisci nihil dolore odit animi similique rem exercitationem aliquam commodi necessitatibus optio. Beatae nemo nesciunt quibusdam laudantium at odit nulla magni dicta?
+			Eligendi repellendus laudantium quo sint obcaecati odio enim expedita temporibus ea fugiat suscipit maiores assumenda sit magni doloribus quibusdam error ratione corporis tempora iure quos, beatae exercitationem. Doloribus, eum maxime.
+			Nam cupiditate repellendus ipsum, quia sequi praesentium repudiandae ut, saepe velit corrupti dolorum magni natus tempore molestiae officiis maxime. Architecto, quae autem nulla neque accusantium ipsa provident ipsam voluptate consequuntur!
+			Possimus quaerat itaque ut deserunt labore illum? Aut, tempore! Beatae nulla similique itaque. Perferendis maxime dolores consectetur corrupti esse beatae! Ducimus dolorum, cum cupiditate nulla maiores voluptatibus cumque nisi quas.
+			Doloremque illum officiis itaque nesciunt aperiam unde corporis ullam odio recusandae culpa non sint, repellat doloribus quis modi deserunt? Esse fuga fugiat tenetur cumque sint architecto rerum, distinct
+		</Paragraph>
 		</>
 	);
 };
