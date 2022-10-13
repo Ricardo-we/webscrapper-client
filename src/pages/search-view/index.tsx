@@ -24,12 +24,13 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const bottomItemRef = useRef(null);
 	const bottomItemVisible = useObserver(bottomItemRef, { threshold: 0.1 });
-	const getProducts = () => {
+	
+	const getProducts = (currentIndex: number) => {
 		return prdocutService
 			.find({
 				params: {
 					search,
-					current_page: currentIndex.current,
+					current_page: currentIndex,
 				},
 			})
 			.then((moreProducts) => {
@@ -49,11 +50,11 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 	});
 
 	useEffect(() => {
-		if (search) {
+		if (search && currentIndex.current > 0) {
 			currentIndex.current = 0;
 			setLoading(true);
 			setProducts([]);
-			getProducts();
+			getProducts(currentIndex.current);
 		}
 	}, [search]);
 

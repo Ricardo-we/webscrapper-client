@@ -26,13 +26,14 @@ const CategoriesView: NextPage<CategoriesViewProps> = ({
 	const bottomItemRef = useRef(null);
 	const bottomItemVisible = useObserver(bottomItemRef, { threshold: 0.1 });
 
-	const onRequestMore = async () => {
+	const onRequestMore = (currentIndex: number) => {
 		productsTagService
 			.find({
 				routeParams: "/" + tagname,
-				params: { current_page: currentIndex.current },
+				params: { current_page: currentIndex },
 			})
 			.then((moreProducts) => {
+				console.log(currentIndex);
 				if (!moreProducts || moreProducts?.length <= 0)
 					return (isMaxPage.current = true);
 				setProducts((prev) => [...prev, ...moreProducts]);
@@ -49,11 +50,11 @@ const CategoriesView: NextPage<CategoriesViewProps> = ({
 	});
 
 	useEffect(() => {
-		if (tagname) {
+		if (tagname && currentIndex.current > 0) {
 			currentIndex.current = 0;
 			setLoading(true);
 			setProducts([]);
-			onRequestMore();
+			onRequestMore(currentIndex.current);
 		}
 	}, [tagname]);
 

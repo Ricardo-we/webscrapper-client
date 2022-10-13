@@ -18,9 +18,9 @@ const useInfiniteScroll = ({
 
 	useEffect(() => {
 		if (bottomItemVisible && !loading && !isMaxPage.current) {
+			currentIndex.current += 1;
 			onLoadChange(true);
 			onRequestMore(currentIndex.current);
-			currentIndex.current += 1;
 		}
 	}, [bottomItemVisible]);
 
