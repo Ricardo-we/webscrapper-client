@@ -97,7 +97,8 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 							dropdownItemsContainerClassNames={`whiteScrollbar dark:bg-gray-900 overflow-y-auto max-h-48 rounded ${navStyles.dropdownContainer} rounded-md shadow-lg`}
 							buttonLabel="Categorías"
 						>
-							{productTags?.map(
+							{productTags?.length > 0 ? (
+								productTags?.map(
 									(productTag: ProductTag, index: number) => (
 										<PlainLink
 											to={`/categories/${productTag?.name}`}
@@ -107,7 +108,10 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 											{productTag?.name}
 										</PlainLink>
 									),
-								)}
+								)
+							) : (
+								<></>
+							)}
 						</DropdownButton>
 					</ul>
 				</div>

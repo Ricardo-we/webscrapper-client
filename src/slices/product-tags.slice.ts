@@ -7,7 +7,6 @@ import { safeJsonParse } from "../libs/utils/general";
 export const PRODUCT_TAGS_LS_KEY = "webscrapper-tags"
 
 const initialState = {
-    // productTags: typeof window !== "undefined" ? safeJsonParse(localStorage.getItem(PRODUCT_TAGS_LS_KEY)) : [] as ProductTag[],
     productTags: [] as ProductTag[],
 }
 
@@ -15,7 +14,7 @@ const userSlice = createSlice({
     name: "productTags",
     initialState,
     reducers: {
-        changeProductTags: (state, action: PayloadAction<ProductTag[]>) => {
+        changeProductTags: (state: any, action: PayloadAction<ProductTag[]>) => {
             // if (localStorage && localStorage) {
             //     localStorage.setItem(PRODUCT_TAGS_LS_KEY, JSON.stringify(state.productTags))
             // }

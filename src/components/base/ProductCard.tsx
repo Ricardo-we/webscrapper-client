@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import Product, { ShopName } from "../../types/Product";
 
 import Button from "./Buttons/Button";
+import { FilterData } from "./Filter";
 import Paragraph from "./Text/Paragraph";
 import { PlainLink } from "./Link";
 import classNames from "classnames";
@@ -87,40 +88,52 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({
 
 interface mapProductListProps {
 	products: Product[];
-	filter?: (item: any, index: number) => boolean;
+	filter?: FilterData;
 }
 
 export const mapProductList = ({
 	products,
-	filter = (item, index) => true,
+	filter = {},
 }: mapProductListProps): JSX.Element[] => {
 	const { language } = useLanguage("es");
 	const cutSentence = getSentenceCutter(11);
-
-	return products && products?.length > 0
+	const filteredProducts = filter
 		? products
-				?.filter(filter)
-				?.map((product, index) => (
-					<ProductCard
-						key={index}
-						image={product?.image}
-						title={product?.name}
-						description={cutSentence(product?.description).replace(
-							/\-/,
-							"",
-						)}
-						bottomLabel={product?.shopName}
-						itemId={product?.id}
-						price={
-							(product?.currencySymbol || "Q") + product?.price
-						}
-						itemUrl={product?.productUrl}
-						buttonText={
-							language?.general?.checkDetails + product?.shopName
-						}
-					/>
-				))
-		: [<></>];
+				?.filter(
+					(item) =>
+						filter?.shops &&
+						Array.from(filter.shops).includes(item.shopName),
+				)
+				?.filter(
+					(item, index) =>
+						filter.priceRange &&
+						item.price > 0 &&
+						item.price < filter?.priceRange,
+				)
+				?.filter(
+					(shop) =>
+						filter.search &&
+						shop.name
+							.toLowerCase()
+							.includes(filter.search?.toLocaleLowerCase()),
+				)
+		: products;
+
+	console.log(filter)
+
+	return filteredProducts?.map((product, index) => (
+		<ProductCard
+			key={index}
+			image={product?.image}
+			title={product?.name}
+			description={cutSentence(product?.description).replace(/\-/, "")}
+			bottomLabel={product?.shopName}
+			itemId={product?.id}
+			price={(product?.currencySymbol || "Q") + product?.price}
+			itemUrl={product?.productUrl}
+			buttonText={language?.general?.checkDetails + product?.shopName}
+		/>
+	));
 };
 
 export default ProductCard;

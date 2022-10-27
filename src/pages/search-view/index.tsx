@@ -1,3 +1,4 @@
+import Filter, { FilterData } from "../../components/base/Filter";
 import type { GetServerSideProps, NextPage } from "next";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -22,9 +23,10 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 	// STATE
 	const [products, setProducts] = useState<Product[]>(preloadedProducts);
 	const [loading, setLoading] = useState<boolean>(false);
+	const [filterData, setFilterData] = useState<FilterData>({});
 	const bottomItemRef = useRef(null);
 	const bottomItemVisible = useObserver(bottomItemRef, { threshold: 0.1 });
-	
+
 	const getProducts = (currentIndex: number) => {
 		return prdocutService
 			.find({
@@ -61,14 +63,16 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 	return (
 		<>
 			<ToastContainer />
-			<div className="w-full cust-small-grid mb-5">
-				{mapProductList({ products })}
-			</div>
+			<div style={{height: "64.7vh"}} className="w-full flex overflow-hidden">
+				<Filter onFilterChange={setFilterData} />
+				<div className="w-5/6 h-full cust-small-grid mb-5">
+					{mapProductList({ products, filter: filterData })}
 
-			<div className="h-10" ref={bottomItemRef}></div>
-
-			<div className="w-full flex items-center justify-center">
-				{loading && <Spinner size={50} />}
+					<div className="h-10" ref={bottomItemRef}></div>
+					<div className="w-full flex items-center justify-center">
+						{loading && <Spinner size={50} />}
+					</div>
+				</div>
 			</div>
 		</>
 	);
