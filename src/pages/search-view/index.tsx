@@ -1,5 +1,5 @@
-import Filter, { FilterData } from "../../components/base/Filter";
 import type { GetServerSideProps, NextPage } from "next";
+import ProductsFilter, { FilterData } from "../../components/base/ProductsFilter";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -61,20 +61,18 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 	}, [search]);
 
 	return (
-		<>
+		<div className="w-full h-full flex relative">
 			<ToastContainer />
-			<div style={{height: "64.7vh"}} className="w-full flex overflow-hidden">
-				<Filter onFilterChange={setFilterData} />
-				<div className="w-5/6 h-full cust-small-grid mb-5">
-					{mapProductList({ products, filter: filterData })}
+			<ProductsFilter onFilterChange={setFilterData} />
+			<div className="w-5/6 cust-small-grid mb-5">
+				{mapProductList({ products, filter: filterData })}
 
-					<div className="h-10" ref={bottomItemRef}></div>
-					<div className="w-full flex items-center justify-center">
-						{loading && <Spinner size={50} />}
-					</div>
+				<div className="h-10" ref={bottomItemRef}></div>
+				<div className="w-full flex items-center justify-center">
+					{loading && <Spinner size={50} />}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

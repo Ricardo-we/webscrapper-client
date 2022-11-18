@@ -1,8 +1,13 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import Product, { ShopName } from "../../types/Product";
+import {
+	createFilter,
+	createItemsSorter,
+	createMultipleAttributesFilter,
+} from "../../libs/utils/array.utils";
 
 import Button from "./Buttons/Button";
-import { FilterData } from "./Filter";
+import { FilterData } from "./ProductsFilter";
 import Paragraph from "./Text/Paragraph";
 import { PlainLink } from "./Link";
 import classNames from "classnames";
@@ -97,43 +102,33 @@ export const mapProductList = ({
 }: mapProductListProps): JSX.Element[] => {
 	const { language } = useLanguage("es");
 	const cutSentence = getSentenceCutter(11);
-	const filteredProducts = filter
-		? products
-				?.filter(
-					(item) =>
-						filter?.shops &&
-						Array.from(filter.shops).includes(item.shopName),
-				)
-				?.filter(
-					(item, index) =>
-						filter.priceRange &&
-						item.price > 0 &&
-						item.price < filter?.priceRange,
-				)
-				?.filter(
-					(shop) =>
-						filter.search &&
-						shop.name
-							.toLowerCase()
-							.includes(filter.search?.toLocaleLowerCase()),
-				)
-		: products;
 
-	console.log(filter)
+	const productNameAndPriceFilter = createMultipleAttributesFilter({
+		filterByAttributes: ["name", "price"],
+		filter: filter,
+		compareByBiggerNumber: false
+	});
 
-	return filteredProducts?.map((product, index) => (
-		<ProductCard
-			key={index}
-			image={product?.image}
-			title={product?.name}
-			description={cutSentence(product?.description).replace(/\-/, "")}
-			bottomLabel={product?.shopName}
-			itemId={product?.id}
-			price={(product?.currencySymbol || "Q") + product?.price}
-			itemUrl={product?.productUrl}
-			buttonText={language?.general?.checkDetails + product?.shopName}
-		/>
-	));
+	return products
+		?.filter((item, index) => filter?.shops?.has(item.shopName))
+		?.filter(productNameAndPriceFilter)
+		?.sort(createItemsSorter(filter?.orderBy || "id", filter?.order || "desc"))
+		?.map((product, index) => (
+			<ProductCard
+				key={index}
+				image={product?.image}
+				title={product?.name}
+				description={cutSentence(product?.description).replace(
+					/\-/,
+					"",
+				)}
+				bottomLabel={product?.shopName}
+				itemId={product?.id}
+				price={(product?.currencySymbol || "Q") + product?.price}
+				itemUrl={product?.productUrl}
+				buttonText={language?.general?.checkDetails + product?.shopName}
+			/>
+		));
 };
 
 export default ProductCard;
