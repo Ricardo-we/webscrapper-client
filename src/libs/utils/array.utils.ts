@@ -21,7 +21,7 @@ interface multipleAttributesFilterArgs {
     minimumMatches?: number;
 }
 
-export function createMultipleAttributesFilter({ minimumMatches=1, filterByAttributes, filter, compareByBiggerNumber = false, priority }: multipleAttributesFilterArgs) {
+export function createMultipleAttributesFilter({ minimumMatches=1, filterByAttributes, filter, compareByBiggerNumber = false }: multipleAttributesFilterArgs) {
     return (item: any, index: number): boolean => {
         let matches = 0;
         for (const attrName of filterByAttributes) {

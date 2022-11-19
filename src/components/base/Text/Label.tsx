@@ -8,13 +8,13 @@ interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 const Label: FC<LabelProps> = ({ size = 4, bold, ...props }) => {
 	return (
 		<label
-			className="w-full p-1 text-left"
+			{...props}
+			className={"w-full p-1 text-left " + props.className}
 			style={{
 				fontSize: `${size * 4}px`,
 				fontWeight: bold ? "600" : "normal",
 			}}
-			{...props}
-		></label>
+		/>
 	);
 };
 

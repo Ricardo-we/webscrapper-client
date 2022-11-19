@@ -33,10 +33,10 @@ const ProductsFilter: FC<FilterProps> = ({ onFilterChange }) => {
 	return (
 		<div className="h-screen w-1/6 p-2 sticky top-28 left-0">
 			<RangeSlider
-				onChange={(e) => {
+				onChange={(value?: any) => {
 					setFilterData((prev) => ({
 						...prev,
-						price: parseFloat(e.target.value),
+						price: parseFloat(value),
 					}));
 				}}
 				value={filterData.price || 1}
@@ -44,6 +44,7 @@ const ProductsFilter: FC<FilterProps> = ({ onFilterChange }) => {
 				min="1"
 				step="1"
 				rangeDecorator={(value) => `Q0 a Q${value}`}
+				// type="number"
 				label="Productos con precios menores a "
 			/>
 

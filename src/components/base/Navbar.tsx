@@ -8,6 +8,7 @@ import IconButton from "./Buttons/IconButton";
 import ProductTag from "../../types/ProductTag";
 import ProductTagService from "../../libs/services/ProductTagService";
 import { RootState } from "../../stores/app.store";
+import TextField from "./fields/TextField";
 import { changeProductTags } from "../../slices/product-tags.slice";
 import navStyles from "../../styles/components/Navbar.module.css";
 import useLanguage from "../../hooks/useLanguage";
@@ -76,7 +77,9 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 						navOpen && navStyles["nav-items-container-collapsed"]
 					}`}
 				>
-					<ul className="flex flex-col md:flex-row  p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 w-full items-center justify-center">
+					<ul 
+						className="flex flex-col md:flex-row  p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 w-full items-center justify-center"
+					>
 						<div className="flex flex-row items-center justify-evenly w-full">
 							<input
 								className="outline-none bg-white p-2 w-full rounded-sm"
@@ -87,12 +90,12 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 							/>
 							<PlainLink
 								to={`/search-view?search=${search}`}
-								className="rounded-sm p-2 bg-indigo-800"
+								className="rounded-sm p-3 bg-indigo-800"
 							>
 								<VscSearch size={20} color="white" />
 							</PlainLink>
 						</div>
-						{/* <NavBarLinkItem to="#">Home</NavBarLinkItem> */}
+						
 						<DropdownButton
 							dropdownItemsContainerClassNames={`whiteScrollbar dark:bg-gray-900 overflow-y-auto max-h-48 rounded ${navStyles.dropdownContainer} rounded-md shadow-lg`}
 							buttonLabel="Categorías"
