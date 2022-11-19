@@ -15,23 +15,29 @@ interface multipleAttributesFilterArgs {
     filterByAttributes: string[];
     filter: any;
     compareByBiggerNumber?: boolean;
+    priority?: "number" | "string";
+    lte?: number;
+    mte?: number;
+    minimumMatches?: number;
 }
 
-export function createMultipleAttributesFilter({ filterByAttributes, filter, compareByBiggerNumber = true }: multipleAttributesFilterArgs) {
+export function createMultipleAttributesFilter({ minimumMatches=1, filterByAttributes, filter, compareByBiggerNumber = false, priority }: multipleAttributesFilterArgs) {
     return (item: any, index: number): boolean => {
+        let matches = 0;
         for (const attrName of filterByAttributes) {
-            const isString = typeof item[attrName] === "string";
-            const isNumber = typeof item[attrName] === "number";
+            const isString = typeof item[attrName] === "string" && typeof filter[attrName] === "string";
+            const isNumber = typeof item[attrName] === "number" && typeof filter[attrName] === "number";
             const isSimilarText = (isString && item?.[attrName]?.toLowerCase()?.includes(filter[attrName].toLowerCase()));
             const isMoreOrLessThan = (isNumber && compareByBiggerNumber
                 ? item?.[attrName] >= filter?.[attrName]
                 : item?.[attrName] <= filter?.[attrName]
             );
-            const equalObjects = (!isNumber && !isString && safeJsonParse(item) === safeJsonParse(filter));
 
-            return isSimilarText || isMoreOrLessThan || equalObjects;
+            if((!isSimilarText && !isMoreOrLessThan)) continue;
+
+            if(isSimilarText || isMoreOrLessThan) matches += 1;
         }
-        return false;
+        return matches >= minimumMatches;
     }
 }
 

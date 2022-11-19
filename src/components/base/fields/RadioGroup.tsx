@@ -11,9 +11,9 @@ interface RadioGroupProps {
 const RadioGroup: FC<RadioGroupProps> = ({ options, name, onChange, label }) => {
 	if (!options || options.length <= 0) return <></>;
 	return (
-		<div  className="flex flex-wrap flex-row aling-center justify-start">
+		<div  className="flex flex-wrap flex-row aling-center gap-2 justify-start">
             {/* <label htmlFor=""></label> */}
-            <Label>{label}</Label>
+            <Label style={{fontWeight: "500"}}>{label}</Label>
 			{options?.map((option, index) => {
 				const splittedOption = option?.includes(":")
 					? option?.split(":")
@@ -37,7 +37,7 @@ const RadioGroup: FC<RadioGroupProps> = ({ options, name, onChange, label }) => 
                             name={name}
 							value={optionValue}
 						/>
-						<Label htmlFor={key}>{optionLabel}</Label>
+						<Label bold htmlFor={key}>{optionLabel}</Label>
 					</div>
 				);
 			})}

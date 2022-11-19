@@ -63,10 +63,10 @@ const ProductsFilter: FC<FilterProps> = ({ onFilterChange }) => {
 
 			<RadioGroup
 				name="orderBy"
-				label="Ordenar por"
+				label="Ordenar y filtrar por"
 				options={[
 					"Precio:price",
-					"Nombre:name",
+					"Nombre del producto:name",
 					"Nombre de tienda:shopName",
 				]}
 				onChange={(e) =>

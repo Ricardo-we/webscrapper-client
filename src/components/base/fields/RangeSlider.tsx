@@ -30,7 +30,7 @@ const RangeSlider: FC<SliderProps> = ({
 
 	return (
 		<div className="flex flex-col w-full items-center justify-start">
-			<Label>{label}</Label>
+			<Label bold>{label}</Label>
 			<input
 				type="range"
 				value={currentValue}

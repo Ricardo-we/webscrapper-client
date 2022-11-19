@@ -28,7 +28,9 @@ const MultipleCheckBox: FC<MultipleCheckBoxProps> = ({
 							onChange={onChange}
 							type="checkbox"
 						/>
-						<Label htmlFor={key}>{item}</Label>
+						<Label bold htmlFor={key}>
+							{item}
+						</Label>
 					</div>
 				);
 			})}
