@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Product from "../../types/Product";
 import ProductsService from "../../libs/services/ProductsService";
 import Spinner from "../../components/base/Spinner";
+import ZeroProducts from "../../components/base/ZeroProducts";
 import { mapProductList } from "../../components/base/ProductCard";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useObserver from "../../hooks/useObserver";
@@ -60,10 +61,19 @@ const Home: NextPage<HomeProps> = ({ preloadedProducts, search }) => {
 		}
 	}, [search]);
 
+
+	if(!preloadedProducts && !products || products?.length <= 0 && preloadedProducts?.length <= 0 ) return <ZeroProducts />;
 	return (
 		<div className="w-full h-full flex relative">
 			<ToastContainer />
-			<ProductsFilter onFilterChange={setFilterData} />
+			<ProductsFilter 
+				onFilterChange={setFilterData} 
+				productLargerPrice={
+					products && products.length > 0 
+					? products?.reduce((p1,p2) => p1.price < p2.price? p2 : p1).price
+					: undefined
+				}
+			/>
 			<div className="w-5/6 cust-small-grid mb-5">
 				{mapProductList({ products, filter: filterData })}
 

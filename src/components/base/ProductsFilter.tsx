@@ -16,14 +16,16 @@ export interface FilterData {
 
 export interface FilterProps {
 	onFilterChange?: (filterData: FilterData) => any;
+	productLargerPrice?: number;
 }
 
 const shops = new Set<ShopName>(["cemaco", "epa", "novex"]);
 
-const ProductsFilter: FC<FilterProps> = ({ onFilterChange }) => {
+const ProductsFilter: FC<FilterProps> = ({ onFilterChange, productLargerPrice=200 }) => {
 	const [filterData, setFilterData] = useState<FilterData>({
 		shops: new Set(shops),
 		name: "",
+		price: productLargerPrice
 	});
 
 	useEffect(() => {
@@ -40,7 +42,7 @@ const ProductsFilter: FC<FilterProps> = ({ onFilterChange }) => {
 					}));
 				}}
 				value={filterData.price || 1}
-				max="100000"
+				max={productLargerPrice.toString()}
 				min="1"
 				step="1"
 				rangeDecorator={(value) => `Q0 a Q${value}`}
@@ -57,7 +59,7 @@ const ProductsFilter: FC<FilterProps> = ({ onFilterChange }) => {
 						if (e.target.checked) prev.shops?.add(e.target.value);
 						else if (!e.target.checked)
 							prev.shops?.delete(e.target.value);
-						return prev;
+						return { ...prev, shops: prev.shops };
 					});
 				}}
 			/>

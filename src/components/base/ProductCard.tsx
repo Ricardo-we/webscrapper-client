@@ -55,8 +55,9 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({
 		>
 			<img
 				src={typeof image === "string" ? image : image?.src}
+				loading="lazy"
 				alt={typeof image === "string" ? "" : image?.alt}
-				className="w-full mx-0 object-cover h-40"
+				className="w-full mx-0 object-contain h-40"
 			/>
 			<div className="flex flex-col items-start mt-2 p-2 justify-between w-full">
 				<h3 className="text-base text-left w-full">{title}</h3>

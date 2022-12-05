@@ -2,6 +2,8 @@ import { AnchorHTMLAttributes, FunctionComponent } from "react";
 
 import NextLink from "next/link";
 
+type LinkModes = "httplink" | "nextlink";
+
 interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 	to: string;
 	children?: JSX.Element | string;
@@ -37,18 +39,51 @@ const Link: FunctionComponent<LinkProps> = ({
 export interface PlainLinkProps
 	extends AnchorHTMLAttributes<HTMLAnchorElement> {
 	to: string;
+	mode?: LinkModes;
 	children?: JSX.Element | JSX.Element[] | string | string[];
 }
 
 export const PlainLink: FunctionComponent<PlainLinkProps> = ({
 	to,
 	children,
+	mode,
 	...props
 }) => {
-	return (
+	return mode === "httplink" ? (
+		<a href={to} {...props}>
+			{children}
+		</a>
+	) : (
 		<NextLink href={to}>
 			<a {...props}>{children}</a>
 		</NextLink>
+	);
+};
+
+interface IconLinkProps {
+	size?: number;
+	to: string;
+	children?: any;
+	mode?: LinkModes;
+	className?: string;
+}
+
+export const IconLink = ({
+	to,
+	children,
+	size,
+	mode = "httplink",
+	className,
+}: IconLinkProps) => {
+	return (
+		<PlainLink
+			className={className}
+			style={{ width: size, height: size }}
+			mode={mode}
+			to={to}
+		>
+			{children}
+		</PlainLink>
 	);
 };
 

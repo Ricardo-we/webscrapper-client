@@ -12,6 +12,7 @@ import TextField from "./fields/TextField";
 import { changeProductTags } from "../../slices/product-tags.slice";
 import navStyles from "../../styles/components/Navbar.module.css";
 import useLanguage from "../../hooks/useLanguage";
+import { useRouter } from "next/router";
 
 interface NavBarProps {}
 
@@ -36,6 +37,7 @@ const NavBarLinkItem = ({
 const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 	const { language } = useLanguage("es");
 	const productTagsService = useMemo(() => new ProductTagService(), []);
+	const router = useRouter();
 
 	const [navOpen, setNavOpen] = useState<boolean>(false);
 	const [search, setSearch] = useState<string>("");
@@ -87,6 +89,9 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
 								type="text"
 								value={search}
 								onChange={(e) => setSearch(e.target.value)}
+								onKeyDown={e => {
+									if(e.key === "Enter") router.push(`/search-view?search=${search}`); 
+								}}
 							/>
 							<PlainLink
 								to={`/search-view?search=${search}`}

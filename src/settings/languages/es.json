@@ -8,7 +8,10 @@
     },
     "module":{
         "home": {
-            "welcomeDescription":"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam, quidem. Fuga qui quisquam delectus maiores eveniet quo alias eius veniam at distinctio. Molestiae neque totam voluptatem, unde nisi odio ea."
+            "welcomeDescription":"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam, quidem. Fuga qui quisquam delectus maiores eveniet quo alias eius veniam at distinctio. Molestiae neque totam voluptatem, unde nisi odio ea.",
+            "footer": {
+                "emailHeading": "Contactanos por Gmail"
+            }
         }
     }
 }
