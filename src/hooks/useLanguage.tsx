@@ -11,7 +11,12 @@ export default function useLanguage(langname: languages) {
     const [language, setLanguage] = useState<LanguageBase>({ general: {}, fields: {}, module: {} });
 
     const getLanguage = async () => {
-        setLanguage(await import(`../settings/languages/${langname}.json`) as LanguageBase);
+        try{
+            const foundedLanguage = await import(`../settings/languages/${langname}.json`) as LanguageBase;
+            setLanguage(foundedLanguage);
+        } catch(err){
+            console.error(err);
+        }
     }
 
     useEffect(() => {
